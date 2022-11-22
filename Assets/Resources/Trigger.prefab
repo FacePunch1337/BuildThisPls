@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10.31, y: 1.03, z: -1.4099998}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,4 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5759e69d593e9f5419f11956165c86d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPhotonView: {fileID: 6672397192474243358, guid: b17cd2e3e0fd5a44ebefc7edde06f117, type: 3}
+  buttonReady: {fileID: 0}
+  buttonStart: {fileID: 0}
+  textReadyCount: {fileID: 0}
+  readyCount: 0

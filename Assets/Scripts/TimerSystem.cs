@@ -16,7 +16,7 @@ public class TimerSystem : MonoBehaviourPun
     public float _second;
     public int _minute;
     public bool _countdown = false;
-    private bool timerStop = false;
+    public bool timerStop = false;
 
 
     void Start()
@@ -26,7 +26,7 @@ public class TimerSystem : MonoBehaviourPun
         leaveButton.SetActive(false);
     } 
     
-    public void Update()
+    public void FixedUpdate()
     {
         if (_countdown)
         {
@@ -36,10 +36,7 @@ public class TimerSystem : MonoBehaviourPun
 
 
 
-                //if (photonView.gameObject.GetComponent<PhotonView>().Owner.IsMasterClient && photonView.gameObject.GetComponent<PhotonView>().AmOwner)
-                //{
-                //Debug.Log("Im Here suka");
-
+                
                 if (!timerStop)
                 {
 
@@ -51,8 +48,7 @@ public class TimerSystem : MonoBehaviourPun
                 }
                     
                     
-                //}
-                //else return;
+             
                     
 
 
@@ -92,34 +88,85 @@ public class TimerSystem : MonoBehaviourPun
         }
     }
 
-    public void Finish()
+    /*public void Finish()
     {
-            
+            var car = GameObject.Find("Car(Clone)");
             GameObject.Find("KingTrigger").TryGetComponent(out KingTriggerScript kingTrigger);
-            if(kingTrigger.kingName.text != string.Empty)
+            if (kingTrigger.kingName.text != string.Empty && kingTrigger.kingName.text != "?")
             {
-                kingName.text = $"{kingTrigger.kingName.text}" + " " + "Winner!";
-                winnerBoard.SetActive(true);
                 
+                kingName.text = $"{kingTrigger.kingName.text}" + " " + "won";
+                winnerBoard.SetActive(true);
+                if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
+                {
                     leaveButton.SetActive(true);
                     Cursor.visible = true;
+                }
+                    
                 
                 
             }
             else if (kingTrigger.kingName.text == string.Empty)
             {
-                kingName.text = $"{kingTrigger.lastKingName.text}" + " " + "Winner!";
-                winnerBoard.SetActive(true);
-                
+               
+                if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
+                {
                     leaveButton.SetActive(true);
                     Cursor.visible = true;
-                
-               
+                }
+
+
             }
            
             
             return;
 
 
+    }*/
+
+   /* public void SendFinishDate()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("Finish", RpcTarget.AllBuffered);
+
+
+    }*/
+
+    //[PunRPC]
+    public void Finish()
+    {
+
+        var car = GameObject.Find("Car(Clone)");
+        GameObject.Find("KingTrigger").TryGetComponent(out KingTriggerScript kingTrigger);
+        if (kingTrigger.kingName.text != string.Empty && kingTrigger.kingName.text != "?")
+        {
+
+            kingName.text = $"{kingTrigger.kingName.text}" + " " + "won";
+            winnerBoard.SetActive(true);
+            if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
+            {
+                leaveButton.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+
+
+
+        }
+        else if (kingTrigger.kingName.text == string.Empty)
+        {
+
+            if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
+            {
+                leaveButton.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+
+
+        }
+
+
+        return;
     }
 }

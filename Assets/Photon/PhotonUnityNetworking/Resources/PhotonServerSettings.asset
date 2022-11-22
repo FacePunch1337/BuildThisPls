@@ -43,6 +43,19 @@ MonoBehaviour:
   - RpcNonServerOwnedTeleportFromServer
   - RpcTeleport
   - ChangeColor
+  - KingNameView
+  - Finish
+  - SyncColor
+  - SaveButtonColorPls
+  - Orange
+  - Red
+  - Green
+  - Blue
+  - Yellow
+  - Cyan
+  - White
+  - Black
+  - Magenta
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

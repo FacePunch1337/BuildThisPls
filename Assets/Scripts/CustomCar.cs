@@ -7,6 +7,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Reflection;
 using ExitGames.Client.Photon;
+using System;
+using UnityEngine.Rendering;
 
 public class CustomCar : MonoBehaviourPun
 {
@@ -70,28 +72,48 @@ public class CustomCar : MonoBehaviourPun
        
     }*/
 
-
-
-    //RPC
-
-  //  public Trigger trigger;
-    public void SendCustomCarDate()
+    /*public void Green()
     {
-         photonView.RPC("ChangeColor", RpcTarget.AllBuffered);
-        
-
+        photonView.RPC("ChangeColorToRed", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
-    public void ChangeColor()
+    public void ChangeColorToGreen()
     {
-        var carMaterialList = GameObject.Find("Car(Clone)").GetComponent<MeshRenderer>().materials;
-        foreach (Material item in carMaterialList)
-        {
-            item.color = Color.green;
-        }
-       
+        var carMaterialList = gameObject.GetComponent<MeshRenderer>();
+        carMaterialList.materials[0].color = Color.green;
 
     }
-    
+    public void Blue()
+    {
+        photonView.RPC("ChangeColorToRed", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    public void ChangeColorToBlue()
+    {
+        var carMaterialList = gameObject.GetComponent<MeshRenderer>();
+        carMaterialList.materials[0].color = Color.green;
+
+    }*/
+
+    private Color _color;
+    public Color color { get { return _color; } set { _color = value; } }
+
+
+
+    public void Send(Color color)
+    {
+        float[] arrColors = {color.r, color.g, color.b, color.a };
+        photonView.RPC("ChangeColor", RpcTarget.AllBuffered, arrColors);
+    }
+
+    [PunRPC]
+    public void ChangeColor(float[] arr)
+    {
+        Color color = new Color(arr[0], arr[1], arr[2], arr[3]);
+        var carMaterialList = gameObject.GetComponent<MeshRenderer>();
+        carMaterialList.materials[0].color = color;
+    }
+
 }

@@ -11,42 +11,34 @@ using TMPro;
 public class GameManager : MonoBehaviourPun
 {
 
-
-   
     private new PhotonView photonView;
 
     public GameObject menuPanel;
- 
+
     public bool first_press = true;
     public bool menu = false;
- 
-   
-    
-    
+
 
     void Start()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         menuPanel.SetActive(false);
         photonView = GetComponent<PhotonView>();
         PhotonNetwork.AutomaticallySyncScene = true;
-
-       
     }
 
-  
 
     void Update()
     {
         // Cursor.visible = false;
-       // CountOfPlayer();
+        // CountOfPlayer();
         if (Input.GetKeyDown(KeyCode.Escape))
-        {      
-                menuPanel.SetActive(true);
-                Cursor.visible = true;
+        {
+            menuPanel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
-
-       
 
         /*if (Input.GetKey(KeyCode.P))
         {
@@ -54,28 +46,28 @@ public class GameManager : MonoBehaviourPun
             
         }*/
     }
-    
-    
+
+
     public void StartMode()
     {
+       
+        GameObject.Find("Trigger").TryGetComponent(out Trigger trigger);
+        if (trigger.readyCount == PhotonNetwork.PlayerList.Length)
+        {
             
-            GameObject.Find("Trigger").TryGetComponent(out Trigger trigger);
-            if (trigger.readyCount == PhotonNetwork.PlayerList.Length)
-            {
+            PhotonNetwork.LoadLevel(2);
 
-                PhotonNetwork.LoadLevel(2);
-           
-            }
-            
-        
+        }
+
+
     }
-    
 
-    
+
+
 
     public void EndGameMode()
     {
-       
+
         PhotonNetwork.LoadLevel(1);
 
     }
@@ -85,19 +77,22 @@ public class GameManager : MonoBehaviourPun
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(0);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ResumeButton()
     {
         menuPanel.SetActive(false);
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void InputButton()
     {
         menuPanel.SetActive(false);
-        
+
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
 
