@@ -14,7 +14,7 @@ public class Trigger : MonoBehaviourPun
 
     private CustomCar customCar;
     private PhotonView _otherPhotonView;
-    public GameObject buttonReady;
+    //public GameObject buttonReady;
     public GameObject buttonStart;
     public GameObject textReadyCount;
     
@@ -28,7 +28,7 @@ public class Trigger : MonoBehaviourPun
         
        
         buttonStart.SetActive(false);
-        buttonReady.SetActive(false);
+        //buttonReady.SetActive(false);
        
 
     }
@@ -71,7 +71,7 @@ public class Trigger : MonoBehaviourPun
         {
             readyCount--;
             buttonStart.SetActive(false);
-            buttonReady.SetActive(false);
+            //buttonReady.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 

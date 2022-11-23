@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using Photon.Pun.Demo.PunBasics;
+using Photon.Pun.Demo.Cockpit;
 //using UnityEditor.PackageManager.UI;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
@@ -14,7 +16,8 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public Canvas menuCanvas;
     public InputField inputFieldRoom;
     public InputField inputFieldNickname;
-   
+
+    public bool closeRoom;
 
 
     void Start()
@@ -37,20 +40,41 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     }
     public void CreateRoom()
     {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 5;
-        PhotonNetwork.CreateRoom(inputFieldRoom.text);
+        if (inputFieldNickname.text != string.Empty && inputFieldRoom.text != string.Empty)
+        {
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = 5;
+            PhotonNetwork.CreateRoom(inputFieldRoom.text);
+        }
+        else return;
     }
 
     public void JoinRoom()
     {
-        
-        PhotonNetwork.JoinRoom(inputFieldRoom.text);
+        if (inputFieldNickname.text != string.Empty && inputFieldRoom.text != string.Empty)
+        {
+            PhotonNetwork.JoinRoom(inputFieldRoom.text);
+        }
+        else return;
     }
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("TestRoom");
+        if (inputFieldNickname.text != string.Empty && inputFieldRoom.text != string.Empty)
+        {
+            if (PhotonNetwork.CurrentRoom.IsOpen)
+            {
+                PhotonNetwork.LoadLevel("TestRoom");
+            }
+            else return;
+
+
+        }
+        else return;
+        
+
+
+
     }
 
     public void Exit()

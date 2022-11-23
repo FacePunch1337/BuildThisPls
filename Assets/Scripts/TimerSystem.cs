@@ -9,7 +9,7 @@ using Photon.Pun;
 public class TimerSystem : MonoBehaviourPun
 {
     public TMP_Text _timer_txt;
-    public TMP_Text kingName;
+    public TMP_Text winner;
     public GameObject leaveButton;
     public GameObject winnerBoard;
     
@@ -123,32 +123,23 @@ public class TimerSystem : MonoBehaviourPun
 
 
     }*/
-
-   /* public void SendFinishDate()
-    {
-        PhotonView photonView = PhotonView.Get(this);
-        photonView.RPC("Finish", RpcTarget.AllBuffered);
-
-
-    }*/
-
-    //[PunRPC]
+   
     public void Finish()
     {
 
-        var car = GameObject.Find("Car(Clone)");
+        
         GameObject.Find("KingTrigger").TryGetComponent(out KingTriggerScript kingTrigger);
         if (kingTrigger.kingName.text != string.Empty && kingTrigger.kingName.text != "?")
         {
 
-            kingName.text = $"{kingTrigger.kingName.text}" + " " + "won";
+            winner.text = $"{kingTrigger.kingName.text}" + " " + "won";
             winnerBoard.SetActive(true);
-            if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
-            {
+           // if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
+           // {
                 leaveButton.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-            }
+          //  }
 
 
 
@@ -156,12 +147,12 @@ public class TimerSystem : MonoBehaviourPun
         else if (kingTrigger.kingName.text == string.Empty)
         {
 
-            if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
-            {
+         //   if (car.GetComponent<PhotonView>().Owner.IsMasterClient && car.GetComponent<PhotonView>().AmOwner)
+          //  {
                 leaveButton.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-            }
+          //  }
 
 
         }

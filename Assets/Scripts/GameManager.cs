@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+
 using Smooth;
 using System;
 using TMPro;
+using static Cinemachine.CinemachineTriggerAction.ActionSettings;
 
 public class GameManager : MonoBehaviourPun
 {
@@ -14,9 +16,11 @@ public class GameManager : MonoBehaviourPun
     private new PhotonView photonView;
 
     public GameObject menuPanel;
+    
 
     public bool first_press = true;
     public bool menu = false;
+    
 
 
     void Start()
@@ -35,10 +39,27 @@ public class GameManager : MonoBehaviourPun
         // CountOfPlayer();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menuPanel.SetActive(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (!menu)
+            {
+                menuPanel.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                menu = true;
+            }
+            else
+            {
+               
+                menuPanel.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                menu = false;
+            }
+           
+            
+            
         }
+        
+
 
         /*if (Input.GetKey(KeyCode.P))
         {
@@ -54,21 +75,30 @@ public class GameManager : MonoBehaviourPun
         GameObject.Find("Trigger").TryGetComponent(out Trigger trigger);
         if (trigger.readyCount == PhotonNetwork.PlayerList.Length)
         {
-            
+           
             PhotonNetwork.LoadLevel(2);
-
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            
         }
 
 
     }
 
 
+    public void SendEndGameMode()
+    {
+        photonView.RPC("EndGameMode", RpcTarget.AllBuffered);
+    }
 
-
+    [PunRPC]
     public void EndGameMode()
     {
 
-        PhotonNetwork.LoadLevel(1);
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene(0);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
 
     }
 

@@ -110,7 +110,41 @@ public class CarController : MonoBehaviourPun
 
                     axleInfo.leftWheel.steerAngle = steering;
                     axleInfo.rightWheel.steerAngle = steering;
-                   
+
+                    if (currentSpeed > 45f)
+                    {
+                        WheelFrictionCurve wheelFrictionCurve = new WheelFrictionCurve();
+
+                        wheelFrictionCurve.extremumSlip = 2f;
+                        wheelFrictionCurve.extremumValue = 2f;
+                        wheelFrictionCurve.asymptoteSlip = 2f;
+                        wheelFrictionCurve.asymptoteValue = 2f;
+                        wheelFrictionCurve.stiffness = 5;
+
+
+
+
+                        axleInfo.rightWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
+                        axleInfo.leftWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
+                    }
+
+                    else
+                    {
+                        WheelFrictionCurve wheelFrictionCurve = new WheelFrictionCurve();
+
+                        wheelFrictionCurve.extremumSlip = 1f;
+                        wheelFrictionCurve.extremumValue = 2;
+                        wheelFrictionCurve.asymptoteSlip = 2;
+                        wheelFrictionCurve.asymptoteValue = 2;
+                        wheelFrictionCurve.stiffness = 5;
+
+
+
+
+                        axleInfo.rightWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
+                        axleInfo.leftWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
+                    }
+
 
                 }
                 if (axleInfo.motor)
@@ -166,7 +200,7 @@ public class CarController : MonoBehaviourPun
                         wheelFrictionCurve.extremumSlip = 1;
                         wheelFrictionCurve.extremumValue = 2;
                         wheelFrictionCurve.asymptoteSlip = 2;
-                        wheelFrictionCurve.asymptoteValue = 1;
+                        wheelFrictionCurve.asymptoteValue = 2;
                         wheelFrictionCurve.stiffness = 5;
 
                         
@@ -378,39 +412,7 @@ public class AxleInfo
     public void CalculateAndApplySteering(float input, float maxSteerAngle, List<AxleInfo> allAxles)
     {
 
-        if (carController.currentSpeed > 35f)
-        {
-            WheelFrictionCurve wheelFrictionCurve = new WheelFrictionCurve();
-
-            wheelFrictionCurve.extremumSlip = 3f;
-            wheelFrictionCurve.extremumValue = 3f;
-            wheelFrictionCurve.asymptoteSlip = 4f;
-            wheelFrictionCurve.asymptoteValue = 3f;
-            wheelFrictionCurve.stiffness = 5;
-
-
-
-
-            rightWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
-            leftWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
-        }
-
-        else
-        {
-            WheelFrictionCurve wheelFrictionCurve = new WheelFrictionCurve();
-
-            wheelFrictionCurve.extremumSlip = 1f;
-            wheelFrictionCurve.extremumValue = 2;
-            wheelFrictionCurve.asymptoteSlip = 2;
-            wheelFrictionCurve.asymptoteValue = 1;
-            wheelFrictionCurve.stiffness = 5;
-
-
-
-
-            rightWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
-            leftWheel.GetComponent<WheelCollider>().sidewaysFriction = wheelFrictionCurve;
-        }
+        
         //first find farest axle, we got to apply default values
         AxleInfo farestAxle = allAxles[0];
         //calculate start point for checking

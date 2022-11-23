@@ -10,8 +10,12 @@ public class KingTriggerScript : MonoBehaviourPun
     private int playerCount = 0;
     private TMP_Text _lastKingName;
     public TMP_Text lastKingName { get { return _lastKingName; } set { _lastKingName = value; } }
+    private Collider _other;
 
-    
+    private void Start()
+    {
+        _other = GetComponent<Collider>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         playerCount++;
@@ -27,19 +31,22 @@ public class KingTriggerScript : MonoBehaviourPun
     }
     private void OnTriggerStay(Collider other)
     {
+        _other = other;
 
-        if (other.gameObject.CompareTag("Car"))
-        {
-
-            other.gameObject.TryGetComponent(out CarController car);
-            if (playerCount > 1) kingName.text = "?";
-            else kingName.text = car.nickname.text;
-        }
-
+        ShowKingName();
 
     }
 
-
+  
+    public void ShowKingName()
+    {
+        if (_other.gameObject.CompareTag("Car"))
+        {
+            _other.gameObject.TryGetComponent(out CarController car);
+            if (playerCount > 1) kingName.text = "?";
+            else kingName.text = car.nickname.text;
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {

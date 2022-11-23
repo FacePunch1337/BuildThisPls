@@ -1222,6 +1222,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 597077845315194358, guid: 684500aac8c72d449a6c36bfe9a38806, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 597077845315194359, guid: 684500aac8c72d449a6c36bfe9a38806, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1611,6 +1615,10 @@ PrefabInstance:
     - target: {fileID: 597077845315194358, guid: 684500aac8c72d449a6c36bfe9a38806, type: 3}
       propertyPath: m_Name
       value: SpawnPoint1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 597077845315194358, guid: 684500aac8c72d449a6c36bfe9a38806, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 597077845315194359, guid: 684500aac8c72d449a6c36bfe9a38806, type: 3}
       propertyPath: m_RootOrder
