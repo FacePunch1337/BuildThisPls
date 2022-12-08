@@ -1150,8 +1150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 1661727882}
+  adminPanel: {fileID: 0}
+  policeCar: {fileID: 3301255732557501622, guid: e74bf03b69dec0041b716526b38e08cb, type: 3}
   first_press: 1
   menu: 0
+  adminPanelOpen: 0
 --- !u!1 &444272917
 GameObject:
   m_ObjectHideFlags: 0

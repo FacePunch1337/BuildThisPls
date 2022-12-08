@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GarageScript : MonoBehaviourPun
 {
     public GameObject customPanel; 
+    
     private Collider _other; 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class GarageScript : MonoBehaviourPun
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 customPanel.SetActive(true);
+                
             }
                 
 

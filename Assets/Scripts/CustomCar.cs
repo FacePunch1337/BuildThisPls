@@ -97,6 +97,7 @@ public class CustomCar : MonoBehaviourPun
 
     }*/
 
+    
     private Color _color;
     public Color color { get { return _color; } set { _color = value; } }
 
@@ -115,5 +116,7 @@ public class CustomCar : MonoBehaviourPun
         var carMaterialList = gameObject.GetComponent<MeshRenderer>();
         carMaterialList.materials[0].color = color;
     }
+
+    
 
 }

@@ -16,10 +16,12 @@ public class GameManager : MonoBehaviourPun
     private new PhotonView photonView;
 
     public GameObject menuPanel;
-    
+    public GameObject adminPanel;
+    public GameObject policeCar;
 
     public bool first_press = true;
     public bool menu = false;
+    public bool adminPanelOpen = false;
     
 
 
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviourPun
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuPanel.SetActive(false);
+        adminPanel.SetActive(false);
         photonView = GetComponent<PhotonView>();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -58,8 +61,37 @@ public class GameManager : MonoBehaviourPun
             
             
         }
-        
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!adminPanelOpen)
+            {
+                adminPanel.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                adminPanelOpen = true;
+            }
+            else
+            {
+
+                adminPanel.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                adminPanelOpen = false;
+            }
+
+
+
+        }
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            GameObject.Find("SpawnPlayers").TryGetComponent(out SpawnPlayers spawnPlayers);
+            spawnPlayers.player = new GameObject();
+            spawnPlayers.player = policeCar;
+
+
+        }
 
         /*if (Input.GetKey(KeyCode.P))
         {
