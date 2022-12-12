@@ -102,14 +102,14 @@ public class MouseDragDrop : MonoBehaviourPun
         return null;
     }
 
-    public void SendFlatToSpawnData(Vector3 colliderDistance, Vector3 originalScreenTargetPosition, Vector3 colliderPos)
+    /*public void SendFlatToSpawnData(Vector3 colliderDistance, Vector3 originalScreenTargetPosition, Vector3 colliderPos)
     {
         Vector3[] spawnData = { colliderDistance, originalScreenTargetPosition, colliderPos};
         photonView.RPC("SpawnObject", RpcTarget.AllBuffered, spawnData);
-    }
+    }*/
 
-    [PunRPC]
-    private Collider GetFlatToSpawn(Vector3[] data)
+    
+    private Collider GetFlatToSpawn()
     {
         RaycastHit hitInfo = new RaycastHit();
         Ray ray = targetCamera.ScreenPointToRay(Input.mousePosition);
@@ -118,8 +118,8 @@ public class MouseDragDrop : MonoBehaviourPun
         {
             if (hitInfo.collider.gameObject.GetComponent<Collider>() && photonView.Owner.IsLocal)
             {
-                
-                colliderDistance = new Vector3(Data[0], Data[1], Data[3]);
+
+                colliderDistance = Vector3.Distance(ray.origin, hitInfo.point);
                 originalScreenTargetPosition = targetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, selectionDistance));
                 colliderPos = hitInfo.collider.transform.position;
                 

@@ -13,7 +13,7 @@ public class CarSounds : MonoBehaviour
     public float maxSpeed;
 
     
-   // public AudioSource driveSource;
+    public AudioSource driveSource;
     //public AudioSource skirtSource;
     public AudioSource beepSource;
     private new Rigidbody rigidbody;
@@ -26,21 +26,21 @@ public class CarSounds : MonoBehaviour
     void Start()
     {
 
-        //driveSource = GetComponent<AudioSource>();
-        //skirtSource = GetComponent<AudioSource>();
-            beepSource = GetComponent<AudioSource>();
+        driveSource = GetComponent<AudioSource>();
+       
+        beepSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
     }
     void FixedUpdate()
     {
-        // EngineSound();
+        EngineSound();
         if (Input.GetKey(KeyCode.E))
         {
             Beep();
         }
 
     }
-    /* void EngineSound()
+     void EngineSound()
     {
         currentSpeed = rigidbody.velocity.magnitude;
         pitchFromCar = rigidbody.velocity.magnitude / 100f;
@@ -61,7 +61,7 @@ public class CarSounds : MonoBehaviour
         }
        
 
-    }*/
+    }
 
     /* void SkirtSound()
      {
